@@ -11,7 +11,7 @@ var httpSrv = http.createServer((req,res)=>{
 	res.setHeader("Access-Control-Allow-Origin",'*');
     //res.writeHead(200,{'Content-Type' : 'text/plain'});
     res.writeHead(200,{'Content-Type': 'video/x-matroska'});
-    const ffmpeg = spawn('ffmpeg',['-i',query.url,'-c:a','aac','-c:v','libx264','-preset','slow','-f','matroska','pipe:1']);
+    const ffmpeg = spawn('ffmpeg',['-i',query.url,'-c:a','aac','-c:v','libx264','-preset','fast','-f','matroska','pipe:1']);
 	ffmpeg.stderr.on('data',(data)=>{
 		//res.write(data.toString('utf-8'));
 		//res.pipe
