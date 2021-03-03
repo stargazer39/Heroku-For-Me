@@ -49,7 +49,7 @@ var httpSrv = http.createServer((req,res)=>{
 httpSrv.listen(port);
 
 function videoStreamer(spawn_args,req_,res_){
-	res.writeHead(200,{
+	res_.writeHead(200,{
     	'Content-Type': 'video/x-matroska',
     	"Connection": "keep-alive"
     });
@@ -60,26 +60,26 @@ function videoStreamer(spawn_args,req_,res_){
 		//console.log(data.toString('utf-8'));
 	})
 
-	ffmpeg.stdout.pipe(res);
+	ffmpeg.stdout.pipe(res_);
 
-	req.on("close", function() {
+	req_.on("close", function() {
 	    console.log(`FFMPEG killed`);
 		ffmpeg.kill('SIGKILL');
 	});
 
-	req.on("end", function() {
+	req_.on("end", function() {
 	    console.log(`FFMPEG killed`);
 		ffmpeg.kill('SIGKILL');
 	});
 	
 	ffmpeg.on('close',(code)=>{
 		console.log(`child process exited with code ${code}`);
-		res.end();
+		res_.end();
 	})
 
 	ffmpeg.on('error',(err)=>{
-		res.write(`Opening FFMPEG faild ${err}`);
-    	res.end();
+		res_.write(`Opening FFMPEG faild ${err}`);
+    	res_.end();
 	})
 }
 
