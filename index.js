@@ -1,13 +1,23 @@
 const { spawn } = require('child_process');
+const http = require('http');
 
+const port = process.env.PORT || 80;
 console.log("Heroku is Working");
-const ffmpeg = spawn('ffmpeg',['-v']);
 
-ffmpeg.stderr.on('data',(data)=>{
-	console.log(data.toString("utf-8"));
+var httpSrv = http.createServer((req,res)=>{
+	res.setHeader("Access-Control-Allow-Origin",'*');
+    res.writeHead(200,{'Content-Type' : 'text/plain'});
+    const ffmpeg = spawn('ffmpeg',['-v']);
+
+	ffmpeg.stderr.on('data',(data)=>{
+		res.write(data.toString('utf-8'));
+	})
+
+	ffmpeg.on('close',(code)=>{
+		console.log(`child process exited with code ${code}`);
+		res.end();
+	})
+
 })
 
-ffmpeg.on('close',(code)=>{
-	console.log(`child process exited with code ${code}`)
-})
-
+httpSrv.listen(port);
