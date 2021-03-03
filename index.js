@@ -1,5 +1,6 @@
 const { spawn } = require('child_process');
 
+console.log("Heroku is Working");
 const ffmpeg = spawn('ffmpeg',['-v']);
 
 ffmpeg.stderr.on('data',(data)=>{
@@ -9,5 +10,4 @@ ffmpeg.stderr.on('data',(data)=>{
 ffmpeg.on('close',(code)=>{
 	console.log(`child process exited with code ${code}`)
 })
-console.log("Heroku is Working");
 
