@@ -30,7 +30,10 @@ var httpSrv = http.createServer((req,res)=>{
     		break;
     }
 
-   	if(pingpls && !isPingiging) pinger = setInterval(pingPong,10000);
+   	if(pingpls && !isPingiging) {
+   		pinger = setInterval(pingPong,10000)
+   		isPingiging = true;
+   	};
     req.on("close", function() {
 	    clearInterval(pinger);
 	    isPingiging = false;
