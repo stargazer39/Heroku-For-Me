@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"A Little Test\""
+    "test": "echo \"A Little Test\"",
+    "start": "index.js"
   },
   "author": "StargazeR",
   "license": "ISC"
