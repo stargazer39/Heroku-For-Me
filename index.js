@@ -7,15 +7,9 @@ console.log("Heroku is Working");
 var httpSrv = http.createServer((req,res)=>{
 	res.setHeader("Access-Control-Allow-Origin",'*');
     res.writeHead(200,{'Content-Type' : 'text/plain'});
-    try{
-    	const ffmpeg = spawn('ffmpeg',['-v']);
-    }catch{
-    	res.write("Opening FFMPEG faild");
-    	res.end();
-    	return;
-    }
-    
 
+    const ffmpeg= spawn('ffmpeg1',['-v']);
+    
 	ffmpeg.stderr.on('data',(data)=>{
 		res.write(data.toString('utf-8'));
 	})
@@ -23,6 +17,11 @@ var httpSrv = http.createServer((req,res)=>{
 	ffmpeg.on('close',(code)=>{
 		console.log(`child process exited with code ${code}`);
 		res.end();
+	})
+
+	ffmpeg.on('error',(err)=>{
+		res.write(`Opening FFMPEG faild ${err}`);
+    	res.end();
 	})
 
 })
