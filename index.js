@@ -12,14 +12,24 @@ var httpSrv = http.createServer((req,res)=>{
     //res.writeHead(200,{'Content-Type' : 'text/plain'});
     res.writeHead(200,{'Content-Type': 'video/mp4'});
     const ffmpeg = spawn('ffmpeg',['-i',query.url,'-c:a','aac','-c:v','libx264','-preset','slow','-f','matroska','pipe:1']);
-
 	ffmpeg.stderr.on('data',(data)=>{
 		//res.write(data.toString('utf-8'));
 		//res.pipe
-		console.log(data.toString('utf-8'));
+		//console.log(data.toString('utf-8'));
 	})
 
 	ffmpeg.stdout.pipe(res);
+
+	req.on("close", function() {
+	    console.log(`FFMPEG killed`);
+		ffmpeg.kill('SIGKILL');
+	});
+
+	req.on("end", function() {
+	    console.log(`FFMPEG killed`);
+		ffmpeg.kill('SIGKILL');
+	});
+	
 	ffmpeg.on('close',(code)=>{
 		console.log(`child process exited with code ${code}`);
 		res.end();
