@@ -22,6 +22,9 @@ var httpSrv = http.createServer((req,res)=>{
     		spawn_args = ['-i',query.url,'-c:a','aac','-b:a','256K','-vf','scale=640x360','-c:v','libx265','-preset','fast','-f','matroska','pipe:1'];
     		videoStreamer(spawn_args,req,res);
     		break;
+    	case "hi":
+    		res.write("Hi for the other side");
+    		break;
     }
 
     req.on("close", function() {
@@ -74,7 +77,7 @@ function videoStreamer(spawn_args,req_,res_){
 function pingPong(){
 	var options = {
 		host:ping_server,
-		path:"/",
+		path:"/?hi=true",
 		port:"80",
 		method:"GET"
 	}
