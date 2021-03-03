@@ -7,11 +7,35 @@ const port = process.env.PORT || 80;
 const ping_server = "ping-pong-is-awsome.herokuapp.com";
 console.log("Heroku is Working");
 
+var pingPong = ()=>{
+	var options = {
+		host:ping_server,
+		path:"/?hi=true",
+		port:"80",
+		method:"GET"
+	}
+	//console.log("req");
+	var str = "";
+	var req = http.request(options,(response)=>{
+		response.on('data', function (chunk) {
+		    str += chunk;
+		});
+	    //the whole response has been received, so we just print it out here
+	    response.on('end', function () {
+	       //console.log(str);
+	    });
+	});
+	req.on('error',(err)=>{
+		console.log(`Couldn't req with error ${err}`)
+	})
+	req.end();
+}
+
 var httpSrv = http.createServer((req,res)=>{
 	var query = URL.parse(req.url,true).query
 	//res.setHeader("Access-Control-Allow-Origin",'*');
     //res.writeHead(200,{'Content-Type' : 'text/plain'});
-    var pinger = setInterval(pingPong,10*60);
+    var pinger = setInterval(pingPong,10000);
     var spawn_args = [];
     switch(query.mode){
     	case "sliit":
@@ -74,26 +98,3 @@ function videoStreamer(spawn_args,req_,res_){
 	})
 }
 
-function pingPong(){
-	var options = {
-		host:ping_server,
-		path:"/?hi=true",
-		port:"80",
-		method:"GET"
-	}
-	//console.log("req");
-	var str = "";
-	var req = http.request(options,(response)=>{
-		response.on('data', function (chunk) {
-		    str += chunk;
-		});
-	    //the whole response has been received, so we just print it out here
-	    response.on('end', function () {
-	       //console.log(str);
-	    });
-	});
-	req.on('error',(err)=>{
-		console.log(`Couldn't req with error ${err}`)
-	})
-	req.end();
-}
