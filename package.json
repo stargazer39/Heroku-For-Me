@@ -1,0 +1,11 @@
+{
+  "name": "heroku-for-me",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"A Little Test\""
+  },
+  "author": "StargazeR",
+  "license": "ISC"
+}
