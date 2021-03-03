@@ -1,9 +1,9 @@
 const { spawn } = require('child_process');
 
-const ffmpeg = spawn('ls','.');
+const ffmpeg = spawn('ffmpeg',['-v']);
 
 ffmpeg.stderr.on('data',(data)=>{
-	console.log(data);
+	console.log(data.toString("utf-8"));
 })
 
 ffmpeg.on('close',(code)=>{
