@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"A Little Test\"",
-    "start": "index.js"
+    "start": "node index.js"
   },
   "author": "StargazeR",
   "license": "ISC"
