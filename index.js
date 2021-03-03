@@ -8,8 +8,8 @@ var httpSrv = http.createServer((req,res)=>{
 	res.setHeader("Access-Control-Allow-Origin",'*');
     res.writeHead(200,{'Content-Type' : 'text/plain'});
 
-    const ffmpeg= spawn('ffmpeg1',['-v']);
-    
+    const ffmpeg= spawn('ffmpeg',['-v']);
+
 	ffmpeg.stderr.on('data',(data)=>{
 		res.write(data.toString('utf-8'));
 	})
