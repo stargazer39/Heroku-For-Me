@@ -11,7 +11,7 @@ var httpSrv = http.createServer((req,res)=>{
 	var query = URL.parse(req.url,true).query
 	//res.setHeader("Access-Control-Allow-Origin",'*');
     //res.writeHead(200,{'Content-Type' : 'text/plain'});
-    var pinger = setInterval(pingPong,1000);
+    var pinger = setInterval(pingPong,10*60);
     var spawn_args = [];
     switch(query.mode){
     	case "sliit":
