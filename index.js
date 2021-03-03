@@ -27,6 +27,7 @@ var httpSrv = http.createServer((req,res)=>{
     		break;
     	case "hi":
     		res.write("Hi for the other side");
+    		res.end();
     		break;
     }
 
