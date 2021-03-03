@@ -6,12 +6,13 @@ const URL = require('url');
 const port = process.env.PORT || 80;
 const ping_server = "ping-pong-is-awsome.herokuapp.com";
 console.log("Heroku is Working");
-
+var isPingiging = false;
+var pinger;
 var httpSrv = http.createServer((req,res)=>{
 	var query = URL.parse(req.url,true).query
 	//res.setHeader("Access-Control-Allow-Origin",'*');
     //res.writeHead(200,{'Content-Type' : 'text/plain'});
-    var pinger,pingpls = false;
+    pingpls = false;
     var spawn_args = [];
     switch(query.mode){
     	case "sliit":
@@ -29,13 +30,15 @@ var httpSrv = http.createServer((req,res)=>{
     		break;
     }
 
-   	if(pingpls = true) pinger = setInterval(pingPong,10000);
+   	if(pingpls && !isPingiging) pinger = setInterval(pingPong,10000);
     req.on("close", function() {
 	    clearInterval(pinger);
+	    isPingiging = false;
 	});
 
 	req.on("end", function() {
 	    clearInterval(pinger);
+	    isPingiging = false;
 	});
 
 })
