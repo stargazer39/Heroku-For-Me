@@ -26,7 +26,7 @@ var headers = {
 
 var ffmpeg_args = {
 	sliit(url){
-		return ['-i',url,'-flags','+ildct','-c:a','aac','-b:a','256K','-c:v','libx264','-preset','slow','-f','matroska','pipe:1']
+		return ['-i',url,'-c:a','aac','-b:a','256K','-c:v','libx264','-preset','fast','-f','matroska','pipe:1']
 	},
 	ytstream(url){
 		return ['-i',url,'-c:a','aac','-b:a','256K','-vf','scale=640x360','-c:v','libx265','-preset','fast','-f','matroska','pipe:1']
