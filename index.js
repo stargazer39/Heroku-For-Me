@@ -42,10 +42,15 @@ var logger = new LogKeeper();
 
 var httpSrv = http.createServer((req,res)=>{
 	var query = URL.parse(req.url,true).query;
-	logger.log("MODE",query.mode,true);
+	if(query.mode) logger.log("MODE",query.mode,true);
 	//res.setHeader("Access-Control-Allow-Origin",'*');
     //res.writeHead(200,{'Content-Type' : 'text/plain'});
     pingpls = false;
+    if(query.hi == true){
+    	res.writeHead(200,headers.plain_text);
+		res.write("Hi for the other side");
+		res.end();
+    }
     switch(query.mode){
     	case "sliit":
     		pingpls = true;
@@ -58,11 +63,6 @@ var httpSrv = http.createServer((req,res)=>{
     	case "getlog":
     		res.writeHead(200,headers.plain_text);
     		res.write(logger.log_array.join("\n"));
-    		res.end();
-    		break;
-    	case "hi":
-    		res.writeHead(200,headers.plain_text);
-    		res.write("Hi for the other side");
     		res.end();
     		break;
     }
