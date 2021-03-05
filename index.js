@@ -46,7 +46,7 @@ var httpSrv = http.createServer((req,res)=>{
 	//res.setHeader("Access-Control-Allow-Origin",'*');
     //res.writeHead(200,{'Content-Type' : 'text/plain'});
     pingpls = false;
-    if(query.hi == true){
+    if(query.hi == "true"){
     	res.writeHead(200,headers.plain_text);
 		res.write("Hi for the other side");
 		res.end();
